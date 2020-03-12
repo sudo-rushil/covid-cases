@@ -1,0 +1,142 @@
+{% extends 'base.html' %}
+
+{% block metas %}
+    {{ super() }}
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+{% endblock %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+{% endblock %}
+
+{% block nav %}{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <br>
+        <center><h2 class="display-4">COVID Case Finder</h2></center>
+        <hr>
+
+        <style>
+					table {
+			  		border-collapse: separate;
+			  		border-spacing: 10px;
+					}
+          td {
+              text-align: right;
+          }
+          .location {
+              text-align: left;
+          }
+        </style>
+
+        <form method="post">
+            {{ form.csrf_token }}
+
+            <div class="form-group">
+                <center><b> {{ form.location.label }} </b></center>
+                {% if form.location.errors %}
+                    {{ form.location(class='form-control is-invalid') }}
+                    {% for error in form.location.errors %}
+                        <div class="invalid-feedback">
+                            {{ error }}
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    {{ form.location(id='f_elem_city', class='form-control') }}
+                {% endif %}
+            </div>
+
+            <center>{{ form.submit(class='btn btn-primary') }}</center>
+            {% if show %}
+                <h4>Closest Case</h4>
+                <hr>
+                <center>
+                    <p>The closest case is {{ "%.2f"|format(form.closest.dist) }} miles away in <b>{{ form.closest.location }}</b>
+                </center>
+                <br>
+
+                <h4>Cases in 100 Miles</h4>
+                <hr>
+
+                {% if form.result %}
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Location</th>
+                            <th>Distance</th>
+                            <th>Number of Cases</th>
+                            <th>Number of Deaths</th>
+                            <th>Number of Recoveries</th>
+                            <th>Latest Data</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        {% for condition in form.result %}
+                        <tr>
+                            <td class="location">{{ condition.location }}</td>
+                            <td>{{ "%.2f"|format(condition.dist) }}</td>
+                            <td>{{ condition.count | int }}</td>
+                            <td>{{ condition.recover | int}}</td>
+                            <td>{{ condition.deaths | int}}</td>
+                            <td>{{ condition.date }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                <br>
+
+                {% else %}
+                    <p>No cases within 100 miles</p>
+                    <br>
+                {% endif %}
+
+
+                {% if form.exresult and (form.result|length <= 3) %}
+                    <h4>Cases in 1000 Miles</h4>
+                    <hr>
+
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Location</th>
+                                <th>Distance</th>
+                                <th>Number of Cases</th>
+                                <th>Number of Deaths</th>
+                                <th>Number of Recoveries</th>
+                                <th>Latest Data</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            {% for condition in form.exresult %}
+                            <tr>
+                                <td class="location">{{ condition.location }}</td>
+                                <td>{{ "%.2f"|format(condition.dist) }}</td>
+                                <td>{{ condition.count | int }}</td>
+                                <td>{{ condition.recover | int}}</td>
+                                <td>{{ condition.deaths | int}}</td>
+                                <td>{{ condition.date }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+
+                {% elif form.result|length > 3 %}
+                    <br>
+
+                {% else %}
+                    <p>No cases within 1000 miles</p>
+                    <br>
+
+                {% endif %}
+
+                <br>
+            {% endif %}
+        </form>
+
+    </div>
+{% endblock %}
+
+{% block footer %}{% endblock %}
