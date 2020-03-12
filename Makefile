@@ -3,13 +3,13 @@ default:
 	flask run --host=0.0.0.0 --port=80
 
 run:
-	gunicorn -b 0.0.0.0:8080 app:app -D
+	gunicorn -b 0.0.0.0:8080 app:app
 
 build:
 	docker build -t covidcases . --no-cache
 
 start:
-	docker run -d -p 8080:8080 covidcases
+	docker run -d -p 8081:8080 covidcases
 
 stop:
 	docker rm $(docker stop $(docker ps -a -q  --filter ancestor=covidcases))
