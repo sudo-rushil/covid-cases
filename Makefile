@@ -1,19 +1,18 @@
-NAME = retrosynthesis
 
 default:
 	flask run --host=0.0.0.0 --port=80
 
 run:
-	gunicorn -b 0.0.0.0:5050 app:app -D
+	gunicorn -b 0.0.0.0:8080 app:app -D
 
 build:
-	docker build -t retrosynthesis . --no-cache
+	docker build -t covidcases . --no-cache
 
 start:
-	docker run -d -p 5050:5050 -p 8080:8080 retrosynthesis
+	docker run -d -p 8080:8080 covidcases
 
 stop:
-	docker rm $(docker stop $(docker ps -a -q  --filter ancestor=retrosynthesis))
+	docker rm $(docker stop $(docker ps -a -q  --filter ancestor=covidcases))
 
 install:
 	pip install -r requirements.txt --no-cache-dir
