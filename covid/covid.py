@@ -31,12 +31,7 @@ def condition_in_radius(case_indexes, radius = 100):
     search_indexes = ((c, d) for (c, d) in case_indexes if d <= radius)
 
     return list(map(lambda elem: condition(elem[0], elem[1]), search_indexes))
-
-
-class QueryError(Exception):
-    def __init__(self, location):
-        self.message = f"Lookup of {location} failed: Check spelling."
-
+    
 
 def query(query):
     '''
@@ -44,8 +39,6 @@ def query(query):
     Returns the top 100 places, top 1000 places, and the closest place.
     '''
     location = geolocator.geocode(query)
-    if location is None: raise QueryError(query)
-
     cases = search_cases(location.latitude, location.longitude)
 
     return condition_in_radius(cases), condition_in_radius(cases, 1000), condition(*cases[0])
