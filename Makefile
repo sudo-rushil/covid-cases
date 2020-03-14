@@ -9,12 +9,12 @@ build:
 	docker build -t covidcases . --no-cache
 
 start:
-	docker run -d -p 8081:8080 --name="covidcases" covidcases
+	docker run -d -t -p 8081:8080 --name="covidcases" covidcases
 
 stop:
 	docker stop covidcases
 	docker rm covidcases
-	docker image prune -a
+	docker rmi covidcases:latest
 
 install:
 	pip install -r requirements.txt --no-cache-dir
