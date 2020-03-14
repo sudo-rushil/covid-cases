@@ -3,7 +3,7 @@ default:
 	flask run --host=0.0.0.0 --port=80
 
 run:
-	gunicorn -b 0.0.0.0:8080 app:app
+	gunicorn -w 2 -b 0.0.0.0:8080 app:app
 
 build:
 	docker build -t covidcases . --no-cache

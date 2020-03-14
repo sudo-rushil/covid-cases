@@ -30,8 +30,9 @@ def condition_in_radius(case_indexes, radius = 100):
     '''
     search_indexes = ((c, d) for (c, d) in case_indexes if d <= radius)
 
+    # return list(filter(lambda cond: cond.count != 0, map(lambda elem: condition(elem[0], elem[1]), search_indexes)))
     return list(map(lambda elem: condition(elem[0], elem[1]), search_indexes))
-    
+
 
 def query(query):
     '''
