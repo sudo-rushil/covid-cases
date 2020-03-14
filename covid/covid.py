@@ -30,8 +30,8 @@ def condition_in_radius(case_indexes, radius = 100):
     '''
     search_indexes = ((c, d) for (c, d) in case_indexes if d <= radius)
 
-    # return list(filter(lambda cond: cond.count != 0, map(lambda elem: condition(elem[0], elem[1]), search_indexes)))
-    return list(map(lambda elem: condition(elem[0], elem[1]), search_indexes))
+    return list(filter(lambda cond: cond.count != 0, map(lambda elem: condition(elem[0], elem[1]), search_indexes)))
+    # return list(map(lambda elem: condition(elem[0], elem[1]), search_indexes))
 
 
 def query(query):
@@ -41,5 +41,6 @@ def query(query):
     '''
     location = geolocator.geocode(query)
     cases = search_cases(location.latitude, location.longitude)
+    local_conditions = condition_in_radius(cases)
 
-    return condition_in_radius(cases), condition_in_radius(cases, 1000), condition(*cases[0])
+    return local_conditions, list(filter(lambda cond: cond.dist >= 100, condition_in_radius(cases, 1000))), local_conditions[0]

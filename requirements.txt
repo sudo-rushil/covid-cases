@@ -1,5 +1,4 @@
 apscheduler
-autopep8
 Flask
 Flask-WTF
 Flask-Mobility
@@ -11,7 +10,5 @@ Jinja2
 joblib
 numpy
 pandas
-pycodestyle
-seaborn
 Werkzeug
 WTForms
