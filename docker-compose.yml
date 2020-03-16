@@ -1,0 +1,9 @@
+version: "3"
+services:
+  covidcases:
+    build: .
+    command: "make run"
+    ports:
+      - "8081:8080"
+    volumes:
+      - ".:/usr/src/"

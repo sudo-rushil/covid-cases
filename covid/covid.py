@@ -41,6 +41,6 @@ def query(query):
     '''
     location = geolocator.geocode(query)
     cases = search_cases(location.latitude, location.longitude)
-    local_conditions = condition_in_radius(cases)
+    conditions = condition_in_radius(cases, 1000)
 
-    return local_conditions, list(filter(lambda cond: cond.dist >= 100, condition_in_radius(cases, 1000))), local_conditions[0]
+    return condition_in_radius(cases), list(filter(lambda cond: cond.dist >= 100, conditions)), conditions[0]
