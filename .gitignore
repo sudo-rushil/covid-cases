@@ -1,5 +1,5 @@
 __pycache__/
 exploration/
 .DS_store
-
-
+.ipynb_checkpoints/
+*.ipynb

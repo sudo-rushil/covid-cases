@@ -65,7 +65,7 @@
                             <th>Distance</th>
                             <th>Current Cases</th>
                             <th>Number of Deaths</th>
-                            <th>Number of Recoveries</th>
+                            <!-- <th>Number of Recoveries</th> -->
                             <th>Latest Data</th>
                         </tr>
                     </thead>
@@ -76,8 +76,8 @@
                             <td class="location">{{ condition.location }}</td>
                             <td>{{ "%.2f"|format(condition.dist) }}</td>
                             <td>{{ condition.count | int }}</td>
-                            <td>{{ condition.recover | int}}</td>
                             <td>{{ condition.deaths | int}}</td>
+                            <!-- <td>{{ condition.recover | int}}</td> -->
                             <td>{{ condition.date }}</td>
                         </tr>
                         {% endfor %}
@@ -102,7 +102,7 @@
                                 <th>Distance</th>
                                 <th>Current Cases</th>
                                 <th>Number of Deaths</th>
-                                <th>Number of Recoveries</th>
+                                <!-- <th>Number of Recoveries</th> -->
                                 <th>Latest Data</th>
                             </tr>
                         </thead>
@@ -113,8 +113,8 @@
                                 <td class="location">{{ condition.location }}</td>
                                 <td>{{ "%.2f"|format(condition.dist) }}</td>
                                 <td>{{ condition.count | int }}</td>
-                                <td>{{ condition.recover | int}}</td>
                                 <td>{{ condition.deaths | int}}</td>
+                                <!-- <td>{{ condition.recover | int}}</td> -->
                                 <td>{{ condition.date }}</td>
                             </tr>
                             {% endfor %}
